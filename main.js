@@ -36,6 +36,7 @@ const inputs = ['firstName', 'lastName', 'organization', 'title', 'phone', 'emai
 
 // Current vCard Data state
 let currentVCardString = "";
+let currentRevString = "";
 
 // Generate vCard String based on form inputs
 function generateVCard() {
@@ -50,6 +51,7 @@ function generateVCard() {
     placeholder.style.display = 'block';
     btnDownload.disabled = true;
     currentVCardString = "";
+    currentRevString = "";
     rawDataText.textContent = "";
     return;
   }
@@ -69,6 +71,11 @@ function generateVCard() {
     let escapedNotes = data.notes.replace(/\n/g, '\\n');
     vcard += `NOTE:${escapedNotes}\n`;
   }
+  
+  // Add Revision Timestamp
+  const now = new Date();
+  currentRevString = now.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+  vcard += `REV:${currentRevString}\n`;
   
   vcard += `END:VCARD`;
   currentVCardString = vcard;
@@ -115,8 +122,10 @@ btnDownload.addEventListener('click', () => {
   const dataUrl = canvas.toDataURL("image/png");
   const a = document.createElement('a');
   a.href = dataUrl;
-  const fn = document.getElementById('firstName').value || 'vcard';
-  a.download = `${fn}-qrcode.png`;
+  
+  const rev = currentRevString || 'unknown';
+  a.download = `viniCard-${rev}.png`;
+  
   a.click();
 });
 
