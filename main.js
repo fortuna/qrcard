@@ -130,25 +130,58 @@ btnDownload.addEventListener('click', () => {
 });
 
 // Routing logic
-function showAppView() {
+function showAppView(pushState = true) {
   startView.classList.add('hidden');
   appView.classList.remove('hidden');
   mainHeader.classList.remove('hidden');
+  
+  if (pushState) {
+    history.pushState({ view: 'app' }, '', '#edit');
+  }
+  
   // Trigger generation setup if form already has data
   generateVCard();
 }
 
-function showStartView() {
+function showStartView(pushState = true) {
   startView.classList.remove('hidden');
   appView.classList.add('hidden');
   mainHeader.classList.add('hidden');
+  
+  if (pushState) {
+    history.pushState({ view: 'start' }, '', '#');
+  }
 }
 
-btnStartCreate.addEventListener('click', showAppView);
+// Handle browser back/forward
+window.addEventListener('popstate', (event) => {
+  if (event.state && event.state.view === 'app') {
+    showAppView(false);
+  } else {
+    showStartView(false);
+  }
+});
+
+// Set initial state on load
+window.addEventListener('load', () => {
+  if (window.location.hash === '#edit') {
+    showAppView(false);
+  } else {
+    history.replaceState({ view: 'start' }, '', '#');
+  }
+});
+
+btnStartCreate.addEventListener('click', () => showAppView(true));
 btnStartUpload.addEventListener('click', () => {
   uploadInput.click();
 });
-btnBackHome.addEventListener('click', showStartView);
+btnBackHome.addEventListener('click', () => {
+  if (window.location.hash === '#edit') {
+    history.back();
+  } else {
+    showStartView(true);
+  }
+});
 
 
 
@@ -231,5 +264,5 @@ function parseVCardAndPopulate(vcardText) {
     }
   });
 
-  showAppView();
+  showAppView(true);
 }

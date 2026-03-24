@@ -15,7 +15,7 @@ Professionals, networkers, and individuals who want a polished, track-free, and 
 - **Upload & Edit (Reverse Engineering):** Users can seamlessly upload a previously downloaded viniCard QR image. The system scans the image, decodes the vCard payload, and auto-populates the input fields for fast editing.
 - **Raw Data Viewer:** Developers or power users can toggle the raw text representation of the vCard data.
 - **Zero Tracking:** 100% offline generation in the browser. 
-
+- **Browser History Support:** Full support for browser back/forward buttons and deep linking (`#edit`) for a seamless single-page application experience.
 ## 4. Technical Specifications
 - **Stack:** Vanilla JavaScript, HTML5, Vanilla CSS3.
 - **Tooling:** Vite for local dev server and optimized production build (`dist/`).
