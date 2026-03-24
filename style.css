@@ -44,13 +44,19 @@ header {
 }
 
 header h1 {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
   font-size: 2.5rem;
   font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+header h1 span {
   background: linear-gradient(135deg, #818cf8, #c084fc);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 0.5rem;
 }
 
 header p {
@@ -265,14 +271,41 @@ canvas {
   pointer-events: none;
 }
 
-.hero-text .hero-title {
+.hero-text .hero-title, .main-logo {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
   font-size: 4rem;
   font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.hero-text .hero-title span, .main-logo span {
   background: linear-gradient(135deg, #818cf8, #c084fc);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 0.5rem;
+}
+
+.logo-morph {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  opacity: 0;
+  animation: reveal-ini 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+  animation-delay: 0.8s;
+}
+
+@keyframes reveal-ini {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  100% {
+    width: 1.1em;
+    opacity: 1;
+  }
 }
 
 .hero-text .hero-subtitle {
