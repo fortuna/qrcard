@@ -26,5 +26,5 @@ Professionals, networkers, and individuals who want a polished, track-free, and 
 ## 5. Aesthetics & UI/UX
 - Mobile-first, responsive grid layout prioritizing single-column readability on smaller devices.
 - Dark mode theme featuring a rich glassmorphism aesthetic, subtle gradients, and a futuristic neon purple glow behind the primary branding.
-- Morphing Branding Animation: The logo dynamically transitions from "vCard" to "viniCard" on page load for a high-end feel.
+- Entry Screen Branding Animation: The logo dynamically transitions from "vCard" to "viniCard" on initial page load for a high-end feel.
 - Precise hover transitions and subtle micro-animations to invoke a premium, modern feel.
