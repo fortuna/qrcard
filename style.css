@@ -68,6 +68,9 @@ header p {
   .main-content {
     grid-template-columns: 1fr 1fr;
   }
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .glass {
@@ -99,8 +102,13 @@ header p {
 
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.form-row .form-group {
+  margin-bottom: 0;
 }
 
 label {
@@ -110,6 +118,8 @@ label {
 }
 
 input, textarea {
+  width: 100%;
+  max-width: 100%;
   background: rgba(15, 23, 42, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 0.5rem;

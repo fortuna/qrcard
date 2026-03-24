@@ -1,4 +1,4 @@
-# QR vCard Generator
+# viniCard Generator
 
 A visually stunning, mobile-responsive web application to generate, view, download, and edit Digital Business Cards (vCards) as QR Codes. Built using Vanilla JavaScript, HTML, CSS, and Vite.
 
