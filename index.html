@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR vCard Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div class="app-container">
+      <header>
+        <h1>QR vCard Profile</h1>
+        <p>Create, share, and scan digital business cards instantly.</p>
+      </header>
+
+      <div class="main-content">
+        <!-- Form Section -->
+        <section class="card form-section glass">
+          <h2>Contact Details</h2>
+          <form id="vcard-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="John" required>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Doe" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="organization">Organization</label>
+              <input type="text" id="organization" name="organization" placeholder="Company Inc.">
+            </div>
+
+            <div class="form-group">
+              <label for="title">Job Title</label>
+              <input type="text" id="title" name="title" placeholder="Software Engineer">
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="+1 234 567 8900">
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="john.doe@example.com">
+            </div>
+
+            <div class="form-group">
+              <label for="website">Website</label>
+              <input type="url" id="website" name="website" placeholder="https://example.com">
+            </div>
+
+            <div class="form-group">
+              <label for="notes">Notes</label>
+              <textarea id="notes" name="notes" placeholder="Met at Tech Conference 2026..." rows="3"></textarea>
+            </div>
+          </form>
+        </section>
+
+        <!-- Preview & Actions Section -->
+        <section class="card preview-section glass">
+          <div class="qr-container">
+            <div class="qr-wrapper" id="qr-wrapper">
+              <canvas id="qr-canvas"></canvas>
+              <div class="placeholder-text" id="qr-placeholder">
+                Fill the form to generate your QR Code
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button id="btn-download" class="btn primary" disabled>
+              <i data-lucide="download"></i> Download QR
+            </button>
+            <button id="btn-upload" class="btn secondary">
+              <i data-lucide="upload"></i> Upload & Edit QR
+            </button>
+            <input type="file" id="qr-upload" accept="image/*" style="display: none;">
+            
+            <button id="btn-toggle-raw" class="btn secondary">
+              <i data-lucide="code"></i> View Raw Data
+            </button>
+          </div>
+
+          <div id="raw-data-container" class="raw-data hidden">
+            <pre id="raw-data-text"></pre>
+          </div>
+        </section>
+      </div>
+    </div>
+    
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
