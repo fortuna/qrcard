@@ -7,17 +7,40 @@
     <title>viniCard Generator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Droid+Serif:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
     <div class="app-container">
-      <header>
+      <header id="main-header" class="hidden">
         <h1>viniCard</h1>
         <p>Create, share, and scan digital business cards instantly.</p>
       </header>
 
-      <div class="main-content">
+      <!-- Start Screen View -->
+      <div id="start-view" class="start-screen">
+        <div class="hero-text">
+          <h1 class="hero-title">viniCard</h1>
+          <p class="hero-subtitle">Your digital identity in a scan.</p>
+        </div>
+        
+        <div class="start-options">
+          <button id="btn-start-create" class="start-card glass">
+            <i data-lucide="plus-circle" class="start-icon"></i>
+            <h3>Create New Card</h3>
+            <p>Design a fresh digital business card from scratch.</p>
+          </button>
+
+          <button id="btn-start-upload" class="start-card glass">
+            <i data-lucide="upload-cloud" class="start-icon"></i>
+            <h3>Upload & Edit</h3>
+            <p>Update an existing viniCard QR code.</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- App View -->
+      <div id="app-view" class="main-content hidden">
         <!-- Form Section -->
         <section class="card form-section glass">
           <h2>Contact Details</h2>
@@ -80,9 +103,6 @@
             <button id="btn-download" class="btn primary" disabled>
               <i data-lucide="download"></i> Download QR
             </button>
-            <button id="btn-upload" class="btn secondary">
-              <i data-lucide="upload"></i> Upload & Edit QR
-            </button>
             <input type="file" id="qr-upload" accept="image/*" style="display: none;">
             
             <button id="btn-toggle-raw" class="btn secondary">
@@ -94,7 +114,18 @@
             <pre id="raw-data-text"></pre>
           </div>
         </section>
+
+        <button id="btn-back-home" class="btn secondary back-btn">
+          <i data-lucide="arrow-left"></i> Back to Start
+        </button>
       </div>
+
+      <footer class="app-footer">
+        <a href="https://www.viniciusfortuna.com" target="_blank" rel="noopener noreferrer" class="by-vini">BY VINI</a>
+        <a href="https://github.com/fortuna/qrcard" target="_blank" rel="noopener noreferrer" class="github-link">
+          <i data-lucide="code"></i> Source Code
+        </a>
+      </footer>
     </div>
     
     <script type="module" src="/main.js"></script>

@@ -232,3 +232,127 @@ canvas {
   white-space: pre-wrap;
   word-break: break-all;
 }
+
+/* Start Screen Styles */
+.start-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 3rem;
+  padding: 2rem 0;
+  flex: 1;
+}
+
+.hero-text .hero-title {
+  font-size: 4rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #818cf8, #c084fc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.hero-text .hero-subtitle {
+  color: var(--text-muted);
+  font-size: 1.25rem;
+}
+
+.start-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  width: 100%;
+  max-width: 800px;
+}
+
+@media (min-width: 768px) {
+  .start-options {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.start-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  cursor: pointer;
+  border: 1px solid var(--glass-border);
+  background: rgba(30, 41, 59, 0.5); /* lighter glass */
+  transition: all 0.3s ease;
+  color: var(--text-color);
+  text-align: center;
+  border-radius: 1rem;
+}
+
+.start-card:hover {
+  transform: translateY(-5px);
+  background: rgba(30, 41, 59, 0.8);
+  border-color: var(--primary-color);
+  box-shadow: 0 10px 40px -10px rgba(99, 102, 241, 0.5);
+}
+
+.start-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.start-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.start-card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.back-btn {
+  grid-column: 1 / -1;
+  margin-top: 1rem;
+}
+
+/* Footer Styles */
+.app-footer {
+  margin-top: auto;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.by-vini {
+  font-family: 'Droid Serif', serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.by-vini:hover {
+  color: var(--text-color);
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.github-link:hover {
+  color: var(--primary-hover);
+}

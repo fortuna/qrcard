@@ -1,22 +1,31 @@
 import QRCode from 'qrcode';
 import jsQR from 'jsqr';
-import { createIcons, Download, Upload, Code } from 'lucide';
+import { createIcons, Download, Upload, Code, PlusCircle, UploadCloud, ArrowLeft } from 'lucide';
 
 // Initialize Lucide icons
 createIcons({
   icons: {
     Download,
     Upload,
-    Code
+    Code,
+    PlusCircle,
+    UploadCloud,
+    ArrowLeft
   }
 });
 
 // DOM Elements
+const startView = document.getElementById('start-view');
+const appView = document.getElementById('app-view');
+const mainHeader = document.getElementById('main-header');
+const btnStartCreate = document.getElementById('btn-start-create');
+const btnStartUpload = document.getElementById('btn-start-upload');
+const btnBackHome = document.getElementById('btn-back-home');
+
 const form = document.getElementById('vcard-form');
 const canvas = document.getElementById('qr-canvas');
 const placeholder = document.getElementById('qr-placeholder');
 const btnDownload = document.getElementById('btn-download');
-const btnUpload = document.getElementById('btn-upload');
 const uploadInput = document.getElementById('qr-upload');
 const btnToggleRaw = document.getElementById('btn-toggle-raw');
 const rawDataContainer = document.getElementById('raw-data-container');
@@ -111,10 +120,28 @@ btnDownload.addEventListener('click', () => {
   a.click();
 });
 
-// Trigger file input dialog
-btnUpload.addEventListener('click', () => {
+// Routing logic
+function showAppView() {
+  startView.classList.add('hidden');
+  appView.classList.remove('hidden');
+  mainHeader.classList.remove('hidden');
+  // Trigger generation setup if form already has data
+  generateVCard();
+}
+
+function showStartView() {
+  startView.classList.remove('hidden');
+  appView.classList.add('hidden');
+  mainHeader.classList.add('hidden');
+}
+
+btnStartCreate.addEventListener('click', showAppView);
+btnStartUpload.addEventListener('click', () => {
   uploadInput.click();
 });
+btnBackHome.addEventListener('click', showStartView);
+
+
 
 // Handle QR Upload and Parsing
 uploadInput.addEventListener('change', (e) => {
@@ -195,5 +222,5 @@ function parseVCardAndPopulate(vcardText) {
     }
   });
 
-  generateVCard();
+  showAppView();
 }
