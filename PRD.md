@@ -25,4 +25,5 @@ Professionals, networkers, and individuals who want a polished, track-free, and 
 
 ## 5. Aesthetics & UI/UX
 - Mobile-first, responsive grid layout prioritizing single-column readability on smaller devices.
-- Dark mode theme featuring a rich glassmorphism aesthetic, subtle gradients, and hover transitions to invoke a premium, modern feel.
+- Dark mode theme featuring a rich glassmorphism aesthetic, subtle gradients, and a futuristic neon purple glow behind the primary branding.
+- Precise hover transitions and subtle micro-animations to invoke a premium, modern feel.
