@@ -8,6 +8,7 @@ Professionals, networkers, and individuals who want a polished, track-free, and 
 
 ## 3. Core Features
 - **Heroic Start Screen:** Triage users initially to either create a new card or update an old one. Features "BY VINI" branding linked to the creator.
+- **Trust & Privacy Section:** A dedicated landing section highlighting Local Encoding, Zero Tracking, and Future-Proof architecture.
 - **Form Data Entry:** Simple, responsive input fields for First Name, Last Name, Organization, Title, Phone, Email, Website, and Notes.
 - **Real-Time QR Generation:** The QR code renders and updates instantly on the canvas as the user types.
 - **vCard 3.0 Compliance:** Standardized contact format structure with an automatic `REV` ISO-8601 timestamp version string.

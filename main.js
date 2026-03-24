@@ -1,6 +1,6 @@
 import QRCode from 'qrcode';
 import jsQR from 'jsqr';
-import { createIcons, Download, Upload, Code, PlusCircle, UploadCloud, ArrowLeft } from 'lucide';
+import { createIcons, Download, Upload, Code, PlusCircle, UploadCloud, ArrowLeft, Lock, EyeOff, Infinity } from 'lucide';
 
 // Initialize Lucide icons
 createIcons({
@@ -10,7 +10,10 @@ createIcons({
     Code,
     PlusCircle,
     UploadCloud,
-    ArrowLeft
+    ArrowLeft,
+    Lock,
+    EyeOff,
+    Infinity
   }
 });
 
