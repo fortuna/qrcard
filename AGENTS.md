@@ -11,3 +11,4 @@ This repository contains a mobile-friendly QR vCard Generator web application.
 2. Maintain the existing UI aesthetic (dark mode, glassmorphism, responsive design).
 3. Do not introduce modern JS frameworks (React, Vue, etc.) unless explicitly requested; stick to Vanilla JS.
 4. Always serve the app during verification using the provided Vite commands or by testing the finalized `/dist` build.
+5. **Maintain the PRD:** The `PRD.md` file acts as the source of truth for the product functionality. Whenever you are asked to implement a new feature or conceptually change the product's requirements, you MUST update `PRD.md` simultaneously to reflect those changes.
