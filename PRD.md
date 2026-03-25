@@ -21,7 +21,7 @@ Professionals, networkers, and individuals who want a polished, track-free, and 
 - **Stack:** Vanilla JavaScript, HTML5, Vanilla CSS3.
 - **Tooling:** Vite for local dev server and optimized production build (`dist/`).
 - **Dependencies:** `qrcode` (for drawing QR canvas), `jsqr` (for decoding uploaded images), `lucide` (icons).
-- **Deployment:** GitHub Pages (served from `/qrcard/` subpath) via automated GitHub Actions pipeline (`deploy.yml`).
+- **Deployment:** GitHub Pages (served from `vinicard.app` root domain) via automated GitHub Actions pipeline (`deploy.yml`).
 
 ## 5. Aesthetics & UI/UX
 - Mobile-first, responsive grid layout prioritizing single-column readability on smaller devices.
