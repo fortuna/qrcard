@@ -137,6 +137,70 @@ input:focus, textarea:focus {
   box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
 }
 
+/* Dynamic Fields Styles */
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.dynamic-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dynamic-input-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.dynamic-input-row input {
+  flex: 1;
+}
+
+.add-field-btn, .remove-field-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.add-field-btn {
+  color: var(--primary-color);
+}
+
+.add-field-btn:hover {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--primary-hover);
+  border-color: var(--primary-color);
+}
+
+.remove-field-btn {
+  color: var(--danger-color);
+  padding: 0.75rem;
+}
+
+.remove-field-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: var(--danger-color);
+}
+
+.add-field-btn i, .remove-field-btn i {
+  width: 14px;
+  height: 14px;
+}
+
 .qr-container {
   display: flex;
   justify-content: center;

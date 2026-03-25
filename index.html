@@ -85,18 +85,45 @@
             </div>
 
             <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="+1 234 567 8900">
+              <div class="label-row">
+                <label>Phone Number(s)</label>
+                <button type="button" class="add-field-btn" data-type="phone" title="Add Phone Index">
+                  <i data-lucide="plus"></i> Add
+                </button>
+              </div>
+              <div id="phone-container" class="dynamic-container">
+                <div class="dynamic-input-row">
+                  <input type="tel" name="phone" placeholder="+1 234 567 8900" class="dynamic-input">
+                </div>
+              </div>
             </div>
 
             <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" placeholder="john.doe@example.com">
+              <div class="label-row">
+                <label>Email Address(es)</label>
+                <button type="button" class="add-field-btn" data-type="email" title="Add Email Index">
+                  <i data-lucide="plus"></i> Add
+                </button>
+              </div>
+              <div id="email-container" class="dynamic-container">
+                <div class="dynamic-input-row">
+                  <input type="email" name="email" placeholder="john.doe@example.com" class="dynamic-input">
+                </div>
+              </div>
             </div>
 
             <div class="form-group">
-              <label for="website">Website</label>
-              <input type="url" id="website" name="website" placeholder="https://example.com">
+              <div class="label-row">
+                <label>Website(s)</label>
+                <button type="button" class="add-field-btn" data-type="website" title="Add Website Index">
+                  <i data-lucide="plus"></i> Add
+                </button>
+              </div>
+              <div id="website-container" class="dynamic-container">
+                <div class="dynamic-input-row">
+                  <input type="url" name="website" placeholder="https://example.com" class="dynamic-input">
+                </div>
+              </div>
             </div>
 
             <div class="form-group">

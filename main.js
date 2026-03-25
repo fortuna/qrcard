@@ -1,21 +1,26 @@
 import QRCode from 'qrcode';
 import jsQR from 'jsqr';
-import { createIcons, Download, Upload, Code, PlusCircle, UploadCloud, ArrowLeft, Lock, EyeOff, Infinity } from 'lucide';
+import { createIcons, Download, Upload, Code, PlusCircle, UploadCloud, ArrowLeft, Lock, EyeOff, Infinity, Plus, X } from 'lucide';
 
 // Initialize Lucide icons
-createIcons({
-  icons: {
-    Download,
-    Upload,
-    Code,
-    PlusCircle,
-    UploadCloud,
-    ArrowLeft,
-    Lock,
-    EyeOff,
-    Infinity
-  }
-});
+function initIcons() {
+  createIcons({
+    icons: {
+      Download,
+      Upload,
+      Code,
+      PlusCircle,
+      UploadCloud,
+      ArrowLeft,
+      Lock,
+      EyeOff,
+      Infinity,
+      Plus,
+      X
+    }
+  });
+}
+initIcons();
 
 // DOM Elements
 const startView = document.getElementById('start-view');
@@ -34,8 +39,9 @@ const btnToggleRaw = document.getElementById('btn-toggle-raw');
 const rawDataContainer = document.getElementById('raw-data-container');
 const rawDataText = document.getElementById('raw-data-text');
 
-// Form Inputs
-const inputs = ['firstName', 'lastName', 'organization', 'title', 'phone', 'email', 'website', 'notes'];
+// Form Inputs configurations
+const staticInputs = ['firstName', 'lastName', 'organization', 'title', 'notes'];
+const dynamicTypes = ['phone', 'email', 'website'];
 
 // Current vCard Data state
 let currentVCardString = "";
@@ -44,8 +50,18 @@ let currentRevString = "";
 // Generate vCard String based on form inputs
 function generateVCard() {
   const data = {};
-  inputs.forEach(id => {
+  
+  // Static fields
+  staticInputs.forEach(id => {
     data[id] = document.getElementById(id).value.trim();
+  });
+
+  // Dynamic fields
+  dynamicTypes.forEach(type => {
+    const selector = `input[name="${type}"]`;
+    data[type] = Array.from(document.querySelectorAll(selector))
+      .map(input => input.value.trim())
+      .filter(val => val !== "");
   });
 
   // Only generate if at least first name is present
@@ -66,9 +82,24 @@ function generateVCard() {
   
   if (data.organization) vcard += `ORG:${data.organization}\n`;
   if (data.title) vcard += `TITLE:${data.title}\n`;
-  if (data.phone) vcard += `TEL;TYPE=cell,voice:${data.phone}\n`;
-  if (data.email) vcard += `EMAIL;TYPE=internet,pref:${data.email}\n`;
-  if (data.website) vcard += `URL:${data.website}\n`;
+  
+  // Multiple Phones
+  data.phone.forEach((phone, index) => {
+    const type = index === 0 ? 'cell,voice,pref' : 'cell,voice';
+    vcard += `TEL;TYPE=${type}:${phone}\n`;
+  });
+
+  // Multiple Emails
+  data.email.forEach((email, index) => {
+    const type = index === 0 ? 'internet,pref' : 'internet';
+    vcard += `EMAIL;TYPE=${type}:${email}\n`;
+  });
+
+  // Multiple Websites
+  data.website.forEach(url => {
+    vcard += `URL:${url}\n`;
+  });
+
   if (data.notes) {
     // Escape newlines for vcard note
     let escapedNotes = data.notes.replace(/\n/g, '\\n');
@@ -109,9 +140,57 @@ function renderQRCode(text) {
   });
 }
 
-// Event Listeners for Input real-time generation
-inputs.forEach(id => {
+// Dynamic Field Management
+function addDynamicField(type, value = '') {
+  const container = document.getElementById(`${type}-container`);
+  const row = document.createElement('div');
+  row.className = 'dynamic-input-row';
+  
+  const placeholders = {
+    phone: '+1 234 567 8900',
+    email: 'john.doe@example.com',
+    website: 'https://example.com'
+  };
+
+  const inputType = type === 'phone' ? 'tel' : (type === 'email' ? 'email' : 'url');
+
+  row.innerHTML = `
+    <input type="${inputType}" name="${type}" value="${value}" placeholder="${placeholders[type]}" class="dynamic-input">
+    <button type="button" class="remove-field-btn" title="Remove">
+      <i data-lucide="x"></i>
+    </button>
+  `;
+
+  container.appendChild(row);
+  
+  // Add listener to new input
+  row.querySelector('input').addEventListener('input', generateVCard);
+  
+  // Add listener to remove button
+  row.querySelector('.remove-field-btn').addEventListener('click', () => {
+    row.remove();
+    generateVCard();
+  });
+
+  initIcons();
+}
+
+// Initial listeners for static fields
+staticInputs.forEach(id => {
   document.getElementById(id).addEventListener('input', generateVCard);
+});
+
+// Primary dynamic input listeners
+document.querySelectorAll('.dynamic-input').forEach(input => {
+  input.addEventListener('input', generateVCard);
+});
+
+// Add buttons listeners
+document.querySelectorAll('.add-field-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const type = btn.getAttribute('data-type');
+    addDynamicField(type);
+  });
 });
 
 // Toggle Raw Data
@@ -126,8 +205,12 @@ btnDownload.addEventListener('click', () => {
   const a = document.createElement('a');
   a.href = dataUrl;
   
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName = document.getElementById('lastName').value.trim();
+  const namePart = (firstName || lastName) ? `${firstName}${lastName ? '-' + lastName : ''}-` : '';
   const rev = currentRevString || 'unknown';
-  a.download = `viniCard-${rev}.png`;
+  
+  a.download = `viniCard-${namePart}${rev}.png`;
   
   a.click();
 });
@@ -167,6 +250,16 @@ window.addEventListener('popstate', (event) => {
 
 // Set initial state on load
 window.addEventListener('load', () => {
+  // Initialize dynamic fields if empty
+  dynamicTypes.forEach(type => {
+    const container = document.getElementById(`${type}-container`);
+    if (container.children.length === 0) {
+      addDynamicField(type);
+      // Remove the "Remove" button for the first mandatory field?
+      // For now let's keep it to allow full flexibility.
+    }
+  });
+
   if (window.location.hash === '#edit') {
     showAppView(false);
   } else {
@@ -221,49 +314,86 @@ uploadInput.addEventListener('change', (e) => {
 });
 
 // Helper: Parse vCard text back to form fields
-function parseVCardAndPopulate(vcardText) {
+/**
+ * Pure function to parse vCard text into a data object.
+ * Handles parameters like N;CHARSET=UTF-8: and multiple entries.
+ */
+function parseVCard(vcardText) {
   const lines = vcardText.split(/\r?\n/);
   const data = {
     firstName: "",
     lastName: "",
     organization: "",
     title: "",
-    phone: "",
-    email: "",
-    website: "",
+    phones: [],
+    emails: [],
+    websites: [],
     notes: ""
   };
 
   lines.forEach(line => {
-    if (line.startsWith('N:')) {
-      // N:LastName;FirstName;;;
-      const parts = line.substring(2).split(';');
-      data.lastName = parts[0] || "";
-      data.firstName = parts[1] || "";
-    } else if (line.startsWith('ORG:')) {
-      data.organization = line.substring(4);
-    } else if (line.startsWith('TITLE:')) {
-      data.title = line.substring(6);
-    } else if (line.startsWith('TEL')) {
-      // TEL;TYPE=cell,voice:+123...
-      const idx = line.indexOf(':');
-      if (idx !== -1) data.phone = line.substring(idx + 1);
-    } else if (line.startsWith('EMAIL')) {
-      const idx = line.indexOf(':');
-      if (idx !== -1) data.email = line.substring(idx + 1);
-    } else if (line.startsWith('URL')) {
-      const idx = line.indexOf(':');
-      if (idx !== -1) data.website = line.substring(idx + 1);
-    } else if (line.startsWith('NOTE:')) {
-      let decodedNotes = line.substring(5).replace(/\\n/g, '\n');
-      data.notes = decodedNotes;
+    const colonIdx = line.indexOf(':');
+    if (colonIdx === -1) return;
+
+    const tagPart = line.substring(0, colonIdx).split(';')[0].toUpperCase();
+    const value = line.substring(colonIdx + 1).trim();
+
+    switch (tagPart) {
+      case 'N':
+        const parts = value.split(';');
+        data.lastName = parts[0] || "";
+        data.firstName = parts[1] || "";
+        break;
+      case 'ORG':
+        data.organization = value;
+        break;
+      case 'TITLE':
+        data.title = value;
+        break;
+      case 'TEL':
+        if (value) data.phones.push(value);
+        break;
+      case 'EMAIL':
+        if (value) data.emails.push(value);
+        break;
+      case 'URL':
+        if (value) data.websites.push(value);
+        break;
+      case 'NOTE':
+        data.notes = value.replace(/\\n/g, '\n');
+        break;
     }
   });
 
-  // Populate UI
-  inputs.forEach(id => {
+  return data;
+}
+
+// Helper: Parse vCard text back to form fields
+function parseVCardAndPopulate(vcardText) {
+  const data = parseVCard(vcardText);
+
+  // Populate Static UI
+  staticInputs.forEach(id => {
     if(document.getElementById(id)) {
       document.getElementById(id).value = data[id];
+    }
+  });
+
+  // Handle Dynamic Fields
+  dynamicTypes.forEach(type => {
+    const container = document.getElementById(`${type}-container`);
+    container.innerHTML = ''; // Clear all
+    
+    const values = type === 'phone' ? data.phones : (type === 'email' ? data.emails : data.websites);
+    
+    if (values.length === 0) {
+      addDynamicField(type);
+      const firstRemove = container.querySelector('.remove-field-btn');
+      if (firstRemove) firstRemove.remove();
+    } else {
+      values.forEach(val => {
+        addDynamicField(type, val);
+      });
     }
   });
 
